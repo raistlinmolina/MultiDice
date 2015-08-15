@@ -1,15 +1,16 @@
 package thesoulforged.net.multidice;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
 
-public class DiceActivity extends ActionBarActivity {
+public class DiceActivity extends Activity {
 
     ImageButton d4Button;
     ImageButton d6Button;
@@ -20,7 +21,6 @@ public class DiceActivity extends ActionBarActivity {
     ImageButton dNACButton;
     TextView diceResult;
     NumberPicker diceAmount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,23 @@ public class DiceActivity extends ActionBarActivity {
         dNACButton = (ImageButton) findViewById(R.id.dNACButton);
         diceResult = (TextView) findViewById(R.id.resultTextView);
         diceAmount = (NumberPicker) findViewById(R.id.diceAmount);
+        diceAmount.setMaxValue(10);
+        diceAmount.setMinValue(1);
+        diceAmount.setValue(1);
 
+
+        d4Button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                int[] diceThrow = DiceUtil.throwStandardDice(DiceUtil.d4Type, diceAmount.getValue());
+                String result = "";
+                for (int aDiceThrow : diceThrow) {
+                    result = result.concat(Integer.toString(aDiceThrow)).concat(",");
+                }
+                diceResult.setText(result);
+
+            }
+        });
 
 
     }
@@ -61,4 +77,6 @@ public class DiceActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
