@@ -46,6 +46,13 @@
         android:layout_column="1"
         android:src="@mipmap/d12" />
 
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/diceAmount"
+        android:layout_row="3"
+        android:layout_column="0" />
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,22 +69,16 @@
         android:layout_column="1"
         android:src="@mipmap/d20" />
 
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/diceAmount"
-        android:layout_row="3"
-        android:layout_column="0" />
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="106dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/resultTextView"
         android:layout_row="3"
-        android:layout_column="2"
-        android:focusable="true" />
+        android:layout_column="1"
+        android:focusable="true"
+        android:layout_columnSpan="2" />
 
 </GridLayout>
 

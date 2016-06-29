@@ -16,7 +16,7 @@ public class DiceUtil {
 
 
     public static int specialStartIndex = 1000;
-    public static int dNACType = specialStartIndex+1;
+    public static int dNACType = specialStartIndex;
 
 
 
@@ -64,7 +64,7 @@ public class DiceUtil {
 
 
     public static int[] throwDice(int diceType, int numDices){
-        if (diceType <= specialStartIndex){
+        if (diceType < specialStartIndex){
             return throwStandardDice(diceType,numDices);
         }else{
             return throwSpecialDice(diceType,numDices);
@@ -89,14 +89,16 @@ public class DiceUtil {
             sum = sum + diceProbs[diceType - specialStartIndex][i];
         }
         for (int i = 0; i < numDices; i++) {
-            int intermediateValue = randomizer.nextInt(sum + 1);
-            sum = 0;
+            int intermediateValue = randomizer.nextInt(sum);
+            int sum2 = 0;
             boolean found = false;
             int j = 0;
             while (!found){
-                sum = sum + diceProbs[diceType - specialStartIndex][j];
-                if (sum >= intermediateValue) found = true;
-                values[i] = diceValues[diceType-specialStartIndex][j];
+                sum2 = sum2 + diceProbs[diceType - specialStartIndex][j];
+                if (sum2 > intermediateValue){
+                    found = true;
+                    values[i] = diceValues[diceType-specialStartIndex][j];
+                }
                 j++;
             }
         }

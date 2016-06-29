@@ -10,17 +10,24 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 
-public class DiceActivity extends Activity {
+public class DiceActivity extends Activity implements View.OnClickListener {
 
     ImageButton d4Button;
     ImageButton d6Button;
     ImageButton d8Button;
     ImageButton d10Button;
     ImageButton d12Button;
+
+
+
     ImageButton d20Button;
     ImageButton dNACButton;
     TextView diceResult;
     NumberPicker diceAmount;
+
+    ImageButton buttons[];
+    int diceTypes [];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +46,30 @@ public class DiceActivity extends Activity {
         diceAmount.setMinValue(1);
         diceAmount.setValue(1);
 
+        buttons = new ImageButton[]{d4Button,d6Button,d8Button,d10Button,d12Button,d20Button,dNACButton};
+        diceTypes = new int[] {DiceUtil.d4Type, DiceUtil.d6Type, DiceUtil.d8Type, DiceUtil.d10Type, DiceUtil.d12Type, DiceUtil.d20Type, DiceUtil.dNACType};
+        for (int i = 0; i< buttons.length; i++) {
+            buttons[i].setOnClickListener(this);
+        }
 
-        d4Button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+    }
 
-                int[] diceThrow = DiceUtil.throwStandardDice(DiceUtil.d4Type, diceAmount.getValue());
+    @Override
+    public void onClick(View view) {
+        for (int i = 0; i< buttons.length; i++) {
+            if (view == buttons[i]) {
+                int[] diceThrow = DiceUtil.throwDice(diceTypes[i], diceAmount.getValue());
                 String result = "";
+                int iter = 0;
                 for (int aDiceThrow : diceThrow) {
-                    result = result.concat(Integer.toString(aDiceThrow)).concat(",");
+                    if (iter > 0) result = result.concat(", ");
+                    result = result.concat(Integer.toString(aDiceThrow));
+                    iter++;
                 }
                 diceResult.setText(result);
 
             }
-        });
-
-
+        }
     }
 
     @Override
